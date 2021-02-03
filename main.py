@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 import math
 
-
+update_day = datetime.now().strftime("%B %d, %Y")
 
 app = Flask(__name__)
 
