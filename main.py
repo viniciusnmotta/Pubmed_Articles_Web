@@ -1,16 +1,40 @@
-from flask import Flask
+from flask import Flask, render_template, url_for, request
 from datetime import datetime
+import pandas as pd
+# from flask_bootstrap import Bootstrap
+import requests
+from bs4 import BeautifulSoup
+import math
+from pub_list import papers
 
-
-now2 = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    now = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-    return f"The date for the home is: {now}, the date for global is {now2}"
 
+@app.route("/", methods=['GET','POST'])
+def home():
+    # form = Search()
+    df = pd.read_csv('MassCytometryArticlesCovid.csv')
+    df = df[['Year','Title', 'full_authors','full_citation','link', 'PMID']]
+    if request.method == 'POST':
+        year = request.form['year']
+        print(year)
+        title = request.form['title']
+        author = request.form['author']
+        if year != "":
+            df = df[df['Year'] == int(year)]
+        if title != "":
+            df = df[df['Title'].str.lower().str.contains(title.lower())]
+        if author != "":
+            df = df[df['full_authors'].str.title().str.contains(author.title())]
+        return render_template('index.html', df=df.to_html(classes='table table-striped', index=False), art_num=len(df))
+
+    return render_template('index.html', df=df.to_html(classes='table table-striped', index=False), art_num=len(df))
+
+@app.route("/update")
+def update():
+    df = papers()
+    return '<h1>update is completed</h1>'
 
 
 if __name__ == '__main__':
