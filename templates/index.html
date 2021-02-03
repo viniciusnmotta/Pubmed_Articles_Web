@@ -15,6 +15,7 @@
 <p>A Pubmed search is performed with the "Mass Cytometry" key. The information from each returned paper in the search is compiled in the list below</p>
 
 <p> Number of Articles Displayed: <span style="color:#845ec2;font-size:1.5rem"><b>{{art_num}}</b></span></p>
+<p>last updated {{update_day}}</p>
 <br>
 <div class="container">
 <form action="{{url_for('home')}}" method="post">
@@ -30,7 +31,7 @@
 </form>
 <br>
 </div>
-<table style="width:50%">
+<table style="width:100%">
     {{df|safe}}
 </table>
 

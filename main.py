@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import math
-from pub_list import papers
+
 
 
 app = Flask(__name__)
@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route("/", methods=['GET','POST'])
 def home():
     # form = Search()
-    df = pd.read_csv('MassCytometryArticlesCovid.csv')
+    df = pd.read_csv('CyTOFArticles.csv')
     df = df[['Year','Title', 'full_authors','full_citation','link', 'PMID']]
     if request.method == 'POST':
         year = request.form['year']
@@ -27,13 +27,13 @@ def home():
             df = df[df['Title'].str.lower().str.contains(title.lower())]
         if author != "":
             df = df[df['full_authors'].str.title().str.contains(author.title())]
-        return render_template('index.html', df=df.to_html(classes='table table-striped', index=False), art_num=len(df))
+        return render_template('index.html', df=df.to_html(classes='table table-striped', index=False), art_num=len(df), update_day=update_day)
 
-    return render_template('index.html', df=df.to_html(classes='table table-striped', index=False), art_num=len(df))
+    return render_template('index.html', df=df.to_html(classes='table table-striped', index=False), art_num=len(df), update_day=update_day)
 
 @app.route("/update")
 def update():
-    df = papers()
+    # df = papers()
     return '<h1>update is completed</h1>'
 
 
