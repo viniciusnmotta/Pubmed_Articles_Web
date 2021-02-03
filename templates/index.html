@@ -11,21 +11,21 @@
 <body>
 
 
-<h1>Wecolme to the Mass Cytometry list of papers<span style="font-size:1rem; margin-left:30px">by Vinicius Motta</span></h1>
-<p>A Pubmed search is performed with the "Mass Cytometry" key. The information from each returned paper in the search is compiled in the list below</p>
+<h1 style="color:#845ec2; margin-top:10px; text-align:center">Wecolme to the Mass Cytometry publication list<span style="font-size:1rem; margin-left:30px; color:black">by Vinicius Motta</span></h1>
+<p>Pubmed search is performed with the "Mass Cytometry" keyword. Information from each identified article is compiled in the table below.</p>
 
-<p> Number of Articles Displayed: <span style="color:#845ec2;font-size:1.5rem"><b>{{art_num}}</b></span></p>
-<p>last updated {{update_day}}</p>
+<p style="margin-bottom:0"> Number of articles displayed: <span style="color:#845ec2;font-size:1.5rem"><b>{{art_num}}</b></span></p>
+<p style="font-size:0.75rem; margin-bottom:0">Last update: {{update_day}}</p>
 <br>
 <div class="container">
 <form action="{{url_for('home')}}" method="post">
-    <label>Search by year</label>
+    <label>Search by: Year</label>
     <input name="year" type="text">
 
-    <label>Search by title</label>
+    <label>Title</label>
     <input name="title" type="text">
 
-    <label>Search by author</label>
+    <label>Author's last name</label>
     <input name="author" type="text">
     <input name="search" type="submit" value="Submit or reset">
 </form>
