@@ -31,7 +31,8 @@ def home():
         if author != "":
             df = df[df['full_authors'].str.title().str.contains(author.title())]
         if citation != "":
-            df = df[df['full_citation'].str.title().str.contains(citation.title())]
+            df = df[df['full_citation'].str.title().str.match(citation.title())]
+            df = df.sort_values(['Year','full_citation'], ascending=False)
         return render_template('index.html', df=df, art_num=len(df), update_day=update_day)
         # return render_template('indexV1.html', df=df.to_html(classes='table table-striped', index=False, render_links=True, escape=False), art_num=len(df), update_day=update_day)
 
