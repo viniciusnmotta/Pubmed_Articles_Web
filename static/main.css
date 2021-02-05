@@ -1,22 +1,28 @@
-.table th{
-text-align:center;
-width:5%;
+/*Table*/
 
-}
-.table thead{
-   color:#161d6f;
-   background: #c7ffd8;
-   text-align:left;
-   width:5%;
-   width:90%;
-}
 .table{
 width:95%;
 align: center;
 margin-left:auto;
 margin-right:auto;
-
+border: 1px
 }
+
+    .table thead{
+       color:#161d6f;
+       background: #c7ffd8;
+
+    /*   text-align:left;
+       width:5%;
+       width:90%;*/
+    }
+        .table th{
+        text-align:center;
+        border-top: 1px solid black
+        /*width:5%;*/
+        }
+
+
 p{
 margin-left:10px;
 }

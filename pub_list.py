@@ -46,12 +46,16 @@ class CreateTable():
             df1 = pd.DataFrame(my_dict)
             df = pd.concat([df, df1], axis=0)
             page += 1
-        print(df)
         self.date = datetime.now().strftime('%B %d, %Y')
         today = datetime.now().strftime("%Y%m%d")
-        df.to_csv(f'Last_Updated_{today}.csv', index=False)
+        # df.to_csv(f'Last_Updated_{today}.csv', index=False)
+        with open('update.csv', "w") as up:
+            up.write(datetime.now().strftime("%B %d, %Y"))
+        # with open('update.csv', "w") as up:
+        #     up.write(today)
         df.to_csv('CyTOFArticles.csv', index=False)
         return df
 df = CreateTable()
+df.papers()
 print(df.date)
 
