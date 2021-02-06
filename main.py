@@ -8,13 +8,14 @@ import math
 from pub_list2 import CreateTable
 
 # update_day = datetime.now().strftime("%B %d, %Y")
-with open('update.csv', 'r') as up:
-    update_day = up.read()
+
 
 app = Flask(__name__)
 
 @app.route("/", methods=['GET','POST'])
 def home():
+    with open('update.csv', 'r') as up:
+        update_day = up.read()
     # form = Search()
     # global df
     df = pd.read_csv('CyTOFArticles.csv')
@@ -42,7 +43,6 @@ def home():
 
 @app.route("/test")
 def test():
-
     with open('update.csv') as up:
         last_update = up.read()
     last_update = datetime.strptime(last_update, "%B %d, %Y")
