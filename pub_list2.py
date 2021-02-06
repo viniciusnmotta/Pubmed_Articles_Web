@@ -50,7 +50,7 @@ class CreateTable():
             page += 1
         self.date = datetime.now().strftime('%B %d, %Y')
         today = datetime.now().strftime("%Y%m%d")
-        with open('update2.csv', "w") as up:
+        with open('update.csv', "w") as up:
             up.write(datetime.now().strftime("%B %d, %Y"))
         diff = num_articles - df.shape[0]
         print(diff)
@@ -60,7 +60,7 @@ class CreateTable():
         df = pd.concat([df2[0:diff], df], axis=0)
         print(df)
         df.reset_index(drop=True, inplace=True)
-        df.to_csv('CyTOFArticles2.csv', index=False)
+        df.to_csv('CyTOFArticles.csv', index=False)
         return df
 df = CreateTable()
 df_final = df.papers()
