@@ -21,21 +21,21 @@
     <p style="margin-left:0px"><b>Search by each field or multiple fields combined </b> </p>
 <form action="{{url_for('home')}}" method="post">
     <label>Year:</label>
-    <input name="year" type="text" size="5">
+    <input name="year" type="text" size="5" placeholder="year" onkeyup="myFunction(0,'0')" id="0">
 
     <label>Title:</label>
-    <input name="title" type="text">
+    <input name="title" type="text" placeholder="a word in title" onkeyup="myFunction(1,'1')" id="1">
 
     <label>Author's last name:</label>
-    <input name="author" type="text">
+    <input name="author" type="text" placeholder="last name" onkeyup="myFunction(2,'2')" id="2">
 
     <label>Citation:</label>
-    <input name="citation" type="text">
+    <input name="citation" type="text" placeholder="a word in citation" onkeyup="myFunction(3,'3')" id="3">
     <input name="search" type="submit" value="Submit or reset">
 </form>
 <br>
 </div>
-<table class='table table-striped' style="table-layout:fixed">
+<table id="myTable" class='table table-striped' style="table-layout:fixed">
     <thead>
     <tr>
         <th style="width:5%">{{df.columns[0]}}</th>
@@ -49,6 +49,7 @@
     {% for index, row in df.iterrows():%}
     <tr>
         {%for i in range(df.shape[1])%}
+
         {%if i < df.shape[1]-1:%}
         <td>{{row[i]}}</td>
         {%else%}
@@ -61,6 +62,45 @@
     {%endfor%}
     </tbody>
 </table>
+
+<!--Below is a javascript to sort table dinamically without the need to submit button. Disadvantage is doesn't combine fields only one at the time-->
+<!--title case function below copied from : https://www.freecodecamp.org/news/three-ways-to-title-case-a-sentence-in-javascript-676a9175eb27/-->
+<!--myFunction was copied and modified (n,id) was added from: https://www.w3schools.com/howto/howto_js_filter_table.asp-->
+<!--<script>
+function titleCase(str) {
+  str = str.toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+  }
+  return str.join(' ');
+}
+function myFunction(n, id) {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById(id);
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[n];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+        if (n > 1) {
+
+        filter = titleCase(filter);
+            if (txtValue.indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        } else if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+  }
+}
+</script>-->
 
 </body>
 </html>
