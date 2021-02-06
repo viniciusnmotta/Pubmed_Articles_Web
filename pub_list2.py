@@ -61,9 +61,9 @@ class CreateTable():
         df.reset_index(drop=True, inplace=True)
         df.to_csv('CyTOFArticles.csv', index=False)
         return df
-df = CreateTable()
-df_final = df.papers()
-print(df.date)
-print(df_final.shape)
-print(df_final.head(20))
+# df = CreateTable()
+# df_final = df.papers()
+# print(df.date)
+# print(df_final.shape)
+# print(df_final.head(20))
 
