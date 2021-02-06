@@ -42,6 +42,7 @@ def home():
 
 @app.route("/test")
 def test():
+
     with open('update.csv') as up:
         last_update = up.read()
     last_update = datetime.strptime(last_update, "%B %d, %Y")

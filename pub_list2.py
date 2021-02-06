@@ -9,6 +9,7 @@ class CreateTable():
     def __init__(self):
         self.date = "test"
 
+
     def papers(self):
         df = pd.read_csv('CyTOFArticles.csv')
         URL = 'https://pubmed.ncbi.nlm.nih.gov/?term=%22Mass+Cytometry%22&sort=date'
