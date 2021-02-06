@@ -21,16 +21,16 @@
     <p style="margin-left:0px"><b>Search by each field or multiple fields combined </b> </p>
 <form action="{{url_for('home')}}" method="post">
     <label>Year:</label>
-    <input name="year" type="text" size="5" placeholder="year" onkeyup="myFunction(0,'0')" id="0">
+    <input name="year" type="text" size="10" placeholder="e.g. 2015" onkeyup="myFunction(0,'0')" id="0">
 
     <label>Title:</label>
-    <input name="title" type="text" placeholder="a word in title" onkeyup="myFunction(1,'1')" id="1">
+    <input name="title" type="text" placeholder="e.g. T Cells" onkeyup="myFunction(1,'1')" id="1">
 
     <label>Author's last name:</label>
-    <input name="author" type="text" placeholder="last name" onkeyup="myFunction(2,'2')" id="2">
+    <input name="author" type="text" placeholder="e.g. Baranov" onkeyup="myFunction(2,'2')" id="2">
 
     <label>Citation:</label>
-    <input name="citation" type="text" placeholder="a word in citation" onkeyup="myFunction(3,'3')" id="3">
+    <input name="citation" type="text" placeholder="e.g. Immunity" onkeyup="myFunction(3,'3')" id="3">
     <input name="search" type="submit" value="Submit or reset">
 </form>
 <br>
