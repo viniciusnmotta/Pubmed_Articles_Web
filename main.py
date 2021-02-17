@@ -23,6 +23,8 @@ def home():
         df = create_table.update_pub()
         update_day = today.strftime("%B %d, %Y")
 
+    print(f"Duplicates after updates {df.duplicated(subset=['PMID']).sum()}")
+    df = df.drop_duplicates(subset=['PMID'])
     df = df[['Year', 'Title', 'full_authors', 'full_citation', 'link']]#, 'PMID'
     # df["col"] = df["link"].apply(lambda x: "<a href='{}'>{}</a>".format(x,x))
     if request.method == 'POST':
