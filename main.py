@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET','POST'])
 def home():
-    df = pd.read_csv('CyTOFArticles.csv')
+
     today = datetime.today().date()
 
     with open('update.csv', 'r') as up:
@@ -20,11 +20,16 @@ def home():
 
     if last_update.date() < today:
         create_table = CreateTable()
-        df = create_table.update_pub()
+        create_table.update_pub()
+        df = pd.read_csv('CyTOFArticles.csv')
+        print(f"Number of duplicates after update function: {df.duplicated().sum()}")
+        df.drop_duplicates(subset=['PMID'], inplace=True)
+        df.to_csv('CyTOFArticles.csv', index=False)
         update_day = today.strftime("%B %d, %Y")
 
-    print(f"Duplicates after updates {df.duplicated(subset=['PMID']).sum()}")
-    df = df.drop_duplicates(subset=['PMID'])
+    df = pd.read_csv('CyTOFArticles.csv')
+    print(f"number of duplicates in the csv file: {df.duplicated().sum()}")
+
     df = df[['Year', 'Title', 'full_authors', 'full_citation', 'link']]#, 'PMID'
     # df["col"] = df["link"].apply(lambda x: "<a href='{}'>{}</a>".format(x,x))
     if request.method == 'POST':
@@ -41,9 +46,9 @@ def home():
         if citation != "":
             df = df[df['full_citation'].str.title().str.match(citation.title())]
             df = df.sort_values(['Year','full_citation'], ascending=False)
-        return render_template('index.html', df=df, art_num=len(df), update_day=update_day)
+        return render_template('index.html', df=df, art_num=df.shape[0], update_day=update_day)
 
-    return render_template('index.html', df=df, art_num=len(df), update_day=update_day)
+    return render_template('index.html', df=df, art_num=df.shape[0], update_day=update_day)
 
 
 @app.route("/test")

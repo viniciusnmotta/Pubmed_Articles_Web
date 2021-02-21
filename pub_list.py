@@ -5,25 +5,22 @@ import math
 from datetime import datetime
 
 
-class CreateTable():
+class CreateTable:
 
     def update_pub(self):
         df = pd.read_csv('CyTOFArticles.csv')
         URL = "https://pubmed.ncbi.nlm.nih.gov/?term=%22Mass+Cytometry%22+or+%22cytof%22&sort=date"
-        # URL = 'https://pubmed.ncbi.nlm.nih.gov/?term=%22Mass+Cytometry%22&sort=date'
         page = 1
-        n_pages = 1
+        n_pages = 3
         df2 = pd.DataFrame()
 
         while page <= n_pages:
             print(page)
             response = requests.get(url=f"{URL}&page={page}")
-            print(response.status_code)
             soup = BeautifulSoup(response.text, "html.parser")
             num_articles = int(soup.find('span', class_="value").text.replace(",", ""))
-            print(num_articles)
-            n_pages = math.ceil((num_articles - df.shape[0]) / 10)
-            print(n_pages)
+            # n_pages = math.ceil((num_articles - df.shape[0]) / 10)
+            # print(n_pages)
 
             titles = [" ".join(item.text.split()) for item in soup.find_all(class_='docsum-title')]
             short_authors = [item.text for item in soup.find_all(class_='docsum-authors short-authors')]
@@ -33,7 +30,6 @@ class CreateTable():
             full_authors = [item.text for item in soup.find_all(class_='docsum-authors full-authors')]
             full_citations = [item.text for item in soup.find_all(class_='docsum-journal-citation full-journal-citation')]
             year = [item.split(". ")[1].replace(".","") for item in short_citations]
-            print(year)
             my_dict = {'PMID': PMIDs,
                        'Year': year,
                       'Title': titles,
@@ -50,13 +46,12 @@ class CreateTable():
         today = datetime.now().strftime("%Y%m%d")
         with open('update.csv', "w") as up:
             up.write(datetime.now().strftime("%B %d, %Y"))
-        diff = num_articles - df.shape[0]
-        print(diff)
-        df = pd.concat([df2[0:diff], df], axis=0)
-        print(f"this is the number of duplicates from class before reset-index {df.duplicated(subset=['PMID']).sum()}")
-
+        # diff = num_articles - df.shape[0]
+        # print(diff)
+        # df = pd.concat([df2[0:diff], df], axis=0)
+        df = pd.concat([df2, df], axis=0)
         df.reset_index(drop=True, inplace=True)
-        print(f"this is the number of duplicates from class {df.duplicated(subset=['PMID']).sum()}")
+        # df.drop_duplicates(inplace=True)
         df.to_csv('CyTOFArticles.csv', index=False)
         return df
 
