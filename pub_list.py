@@ -98,6 +98,6 @@ class CreateTable:
         df.to_csv('CyTOFArticles.csv', index=False)
         return df
 
-# df = CreateTable()
-# df_final = df.create_pub()
+df = CreateTable()
+df_final = df.create_pub()
 
